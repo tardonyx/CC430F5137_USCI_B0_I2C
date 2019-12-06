@@ -1,0 +1,2 @@
+# CC430F5137_USCI_B0_I2C
+I2C master library for USCI_B0 CC430F5137
