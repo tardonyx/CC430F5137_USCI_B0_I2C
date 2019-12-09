@@ -1,3 +1,13 @@
+/******************************************************************************
+ 
+     * File:                USCI_I2C.h
+     * Description:         Header file for the USCI_I2C.c
+     * Created:             08 oct 2019
+     * Author:              Andrey Bibea
+     * Email:               andreybibea@gmail.com
+
+******************************************************************************/
+
 #ifndef USCI_I2C_H_
 #define USCI_I2C_H_
 
