@@ -1,6 +1,6 @@
 # CC430F5137_USCI_B0_I2C #
 
-## Discription ##
+## Description ##
 
 I2C master library for USCI_B0 CC430F5137
 
