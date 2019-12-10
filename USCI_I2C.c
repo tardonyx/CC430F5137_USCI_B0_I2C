@@ -111,6 +111,32 @@ void USCI_I2C_RX(unsigned char RXdataCtr, unsigned char *RXdataPtr) {
 
 
 /*
+ * Receiving data from device via I2C bus w/o entering LPM0 mode and w/o interrupts
+ * @param   [in]    slaveAddr   -   I2C slave device address
+ * @param   [in]    reg         -   register address
+ * @return          data byte from <reg> register
+ */
+unsigned char USCI_I2C_RX_single_noIV(unsigned char slaveAddr, unsigned char reg) {
+    unsigned char byte;
+    UCB2CTL1 |= UCSWRST;                        // Enable SW reset
+    UCB2I2CSA = slaveAddr;                      // Load slave address
+    UCB2CTL1 |= UCTXSTT + UCTR;
+    UCB2CTL1 &= ~UCSWRST;                       // Disable SW reset
+    UCB2TXBUF = reg;
+    while(!(UCB2IFG & UCTXIFG));
+    while(UCB2CTL1 &UCTXSTT);
+    UCB2CTL1 |= UCTXSTT;
+    UCB2I2CSA = slaveAddr;                      // Load slave address
+    UCB2CTL1 &= ~UCTR;
+    while(UCB2CTL1 & UCTXSTT);
+    byte = UCB2RXBUF;
+    UCB2CTL1 |= UCTXSTP;
+    while(UCB2CTL1 & UCTXSTP);
+    return byte;
+}
+
+
+/*
  * Transmitting data to device via I2C bus
  * @param   [in]    TXdataCtr   -   amount of data bytes we should transmit
  * @param   [in]    TXdataPtr   -   pointer to transmitting buffer, which contains data to transmit

@@ -27,6 +27,8 @@ void USCI_I2C_TX_Init(unsigned char slaveAddr, unsigned char prescale);
 
 void USCI_I2C_RX(unsigned char RXdataCtr, unsigned char *RXdataPtr);
 
+unsigned char USCI_I2C_RX_single_noIV(unsigned char slaveAddr, unsigned char reg);
+
 void USCI_I2C_TX(unsigned char TXdataCtr, unsigned char *TXdataPtr);
 
 unsigned char USCI_I2C_NotReady(void);
